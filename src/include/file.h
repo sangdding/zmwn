@@ -13,7 +13,7 @@ typedef struct fnode {
     off_t size;
 } fnode;
 
-struct nvme_zns_append_args* gen_append_args(__u64 zslba, void *data, ZoneDeviceInfo device);
+void gen_append_args(struct nvme_zns_append_args*, __u64 zslba, void *data, ZoneDeviceInfo device);
 
 int zopen();
 
