@@ -37,11 +37,16 @@ int init_metadata()
     const unsigned int fd = 3;
     int ret;
     struct nvme_zns_append_args *args;
-    char *data = "hi";
+    char data[4096];
+    memset(data, 0, sizeof(data));
+    strcpy(data, "Hello, world!\n");
     args = (struct nvme_zns_append_args *)malloc(sizeof(struct nvme_zns_append_args));
     gen_append_args(args, 0, data, *zoneDeviceInfo);
     ret = nvme_zns_append(args);
+    printf("%d\n", args->data_len);
     printf("%d\n", args->nlb);
+    printf("%ld\n", (uint64_t)args->result);
+    printf("%s\n", strerror(errno));
     if (ret) return 0;
     
     return 1;
